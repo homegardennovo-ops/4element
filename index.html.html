@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4 Элемента — Создать концепцию</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --w:#FFFFFF;--c:#F8F5F0;--s:#F2EDE5;--st:#E4DDD2;
+  --g:#B89760;--gl:#CBA978;--ink:#1A1815;--gr:#3A3730;
+  --mu:#8A8580;--li:#C4C0BA;--dk:#0F0E0C;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--w);color:var(--ink);overflow-x:hidden}
+::selection{background:rgba(184,151,96,.12)}
+::-webkit-scrollbar{width:2px}
+::-webkit-scrollbar-thumb{background:var(--st)}
+
+.pg{display:none}.pg.on{display:block}
+
+/* NAV */
+.qnav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--st);padding:18px 6%;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.qnav-logo{font-size:11px;font-weight:500;letter-spacing:4px;color:var(--ink);text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:12px}
+.logo-c{width:22px;height:22px;border:1px solid var(--ink);border-radius:50%;position:relative;flex-shrink:0}
+.logo-c::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:3px;height:3px;background:var(--ink);border-radius:50%}
+.qprog-wrap{flex:1;max-width:260px;margin:0 2rem}
+.qprog{display:flex;gap:3px}
+.qpd{flex:1;height:1px;background:var(--st);transition:background .4s}
+.qpd.dn{background:var(--g)}.qpd.ac{background:var(--g);opacity:.4}
+.step-counter{font-size:10px;letter-spacing:2px;color:var(--mu);white-space:nowrap}
+
+/* ── LANDING ── */
+#landing{min-height:100vh;background:var(--c)}
+.land-nav{padding:28px 7%;display:flex;align-items:center;justify-content:space-between}
+.land-logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+.land-logo-c{width:28px;height:28px;border:1px solid var(--ink);border-radius:50%;position:relative;flex-shrink:0}
+.land-logo-c::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:4px;height:4px;background:var(--ink);border-radius:50%}
+.land-logo-t{font-size:11px;font-weight:500;letter-spacing:5px;color:var(--ink);text-transform:uppercase}
+
+/* HERO */
+.land-hero{padding:60px 7% 80px;display:grid;grid-template-columns:1fr 1fr;gap:6%;align-items:center;min-height:calc(100vh - 88px)}
+.land-tag{font-size:9px;letter-spacing:5px;color:var(--g);text-transform:uppercase;margin-bottom:2.5rem;display:flex;align-items:center;gap:14px}
+.land-tag::before{content:'';width:24px;height:1px;background:var(--g)}
+.land-h{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,4.8vw,72px);font-weight:300;line-height:1.06;color:var(--ink);margin-bottom:2rem}
+.land-h em{font-style:italic}
+.land-d{width:40px;height:1px;background:var(--g);margin-bottom:2rem}
+.land-sub{font-size:15px;font-weight:300;color:var(--mu);line-height:1.9;margin-bottom:2.5rem;max-width:460px}
+.btn-start-main{
+  display:inline-flex;align-items:center;gap:16px;
+  padding:17px 52px;background:var(--ink);color:var(--w);
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:500;
+  letter-spacing:3px;text-transform:uppercase;border:none;cursor:pointer;transition:background .3s;
+}
+.btn-start-main:hover{background:var(--gr)}
+.price-tag-hero{margin-top:1.5rem;font-size:12px;color:var(--mu);font-weight:300}
+.price-tag-hero strong{color:var(--ink);font-weight:500}
+
+/* HERO IMAGE */
+.land-hero-img{position:relative;height:100%;min-height:480px}
+.hero-img-main{width:100%;height:100%;min-height:480px;object-fit:cover;display:block}
+.hero-img-main-fake{
+  width:100%;min-height:480px;
+  background:linear-gradient(155deg,#DDD0B8 0%,#C4A882 40%,#8B7355 100%);
+  position:relative;overflow:hidden;
+}
+.hero-img-main-fake::before{
+  content:'';position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1600210491892-03d54079d6ac?w=800&q=80') center/cover;
+}
+.hero-float{
+  position:absolute;bottom:-20px;left:-20px;
+  width:180px;padding:1.2rem 1.5rem;
+  background:var(--w);border:1px solid var(--st);
+}
+.hf-num{font-size:9px;letter-spacing:3px;color:var(--g);margin-bottom:.3rem}
+.hf-t{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--ink)}
+
+/* VALUE BLOCKS — fixed contrast */
+.value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:var(--ink)}
+.val-cell{padding:3rem 2.5rem;border-right:1px solid rgba(255,255,255,.06)}
+.val-cell:last-child{border-right:none}
+.val-num{font-size:9px;letter-spacing:3px;color:var(--g);margin-bottom:1rem}
+.val-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:rgba(248,245,240,.95);margin-bottom:.75rem;line-height:1.2}
+.val-desc{font-size:13px;font-weight:300;color:rgba(255,255,255,.5);line-height:1.85}
+
+/* WHAT YOU GET */
+.what-section{padding:100px 7%;background:var(--w)}
+.what-inner{max-width:1100px;margin:0 auto}
+.sec-ey{font-size:9px;letter-spacing:4px;color:var(--g);text-transform:uppercase;margin-bottom:1.5rem}
+.sec-t{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,3.5vw,48px);font-weight:300;color:var(--ink);margin-bottom:1rem;line-height:1.1}
+.sec-t em{font-style:italic}
+.sec-d{width:40px;height:1px;background:var(--g);margin:2rem 0}
+.what-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--st);margin-top:3rem}
+.what-item{padding:2rem 2.5rem 2rem 0;border-right:1px solid var(--st);border-bottom:1px solid var(--st)}
+.what-item:nth-child(2n){border-right:none;padding-left:2.5rem;padding-right:0}
+.what-item:nth-last-child(-n+2){border-bottom:none}
+.wi-n{font-size:9px;letter-spacing:3px;color:var(--g);margin-bottom:.6rem}
+.wi-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--ink);margin-bottom:.4rem}
+.wi-desc{font-size:13px;font-weight:300;color:var(--mu);line-height:1.8}
+
+/* PHOTO MOSAIC */
+.mosaic{display:grid;grid-template-columns:1.3fr 0.7fr 1fr;grid-template-rows:320px 280px;gap:3px;margin:60px 0 0}
+.mos-c{overflow:hidden;position:relative;background:var(--s)}
+.mos-c.tall{grid-row:1/3}
+.mos-img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .8s ease;
+}
+.mos-c:hover .mos-img{transform:scale(1.04)}
+.mos-fake{width:100%;height:100%}
+.mos-lb{position:absolute;bottom:16px;left:16px;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.5);text-transform:uppercase}
+
+/* PRICE */
+.price-section{padding:100px 7%;background:var(--c)}
+.price-inner{max-width:640px;margin:0 auto;text-align:center}
+.price-amount{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,7vw,88px);font-weight:300;color:var(--ink);margin:1rem 0 .5rem}
+.price-sub{font-size:13px;color:var(--mu);margin-bottom:3rem;font-weight:300}
+.price-includes{text-align:left;background:var(--w);border:1px solid var(--st);padding:2rem;margin-bottom:2.5rem}
+.price-item{display:flex;align-items:flex-start;gap:12px;padding:.65rem 0;border-bottom:1px solid var(--st);font-size:13px;font-weight:300;color:var(--ink)}
+.price-item:last-child{border-bottom:none}
+.price-check{color:var(--g);flex-shrink:0;margin-top:1px}
+.price-note{margin-top:1.5rem;font-size:11px;color:var(--li);letter-spacing:1px}
+
+/* ── QUESTIONNAIRE ── */
+#qpage{background:var(--c);min-height:100vh}
+.qstep{display:none;min-height:100vh;padding:110px 6% 80px;flex-direction:column;justify-content:center}
+.qstep.on{display:flex}
+.q-ey{font-size:9px;letter-spacing:4px;color:var(--g);text-transform:uppercase;margin-bottom:1.5rem}
+.q-t{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.8vw,52px);font-weight:300;line-height:1.1;color:var(--ink);margin-bottom:.75rem;max-width:680px}
+.q-t em{font-style:italic}
+.q-hint{font-size:14px;font-weight:300;color:var(--mu);margin-bottom:2.5rem;line-height:1.7;max-width:560px}
+
+/* TYPE CARDS */
+.type-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:2.5rem}
+.tc{cursor:pointer;border:1px solid var(--st);background:var(--w);padding:2.5rem 2rem;transition:all .25s;position:relative}
+.tc:hover{border-color:var(--g);transform:translateY(-2px)}
+.tc.sel{border:2px solid var(--ink);background:var(--ink)}
+.tc-icon{font-size:30px;margin-bottom:1rem}
+.tc-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--ink);margin-bottom:.5rem}
+.tc.sel .tc-name{color:rgba(248,245,240,.95)}
+.tc-desc{font-size:12px;font-weight:300;color:var(--mu);line-height:1.7}
+.tc.sel .tc-desc{color:rgba(255,255,255,.35)}
+.tc-price{font-size:10px;letter-spacing:2px;color:var(--g);margin-top:1rem;text-transform:uppercase}
+
+/* PILLS */
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:2.5rem}
+.pill{
+  padding:10px 20px;border:1px solid var(--st);cursor:pointer;
+  font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;
+  color:var(--mu);background:var(--w);transition:all .2s;
+}
+.pill:hover{border-color:var(--g);color:var(--ink)}
+.pill.sel{background:var(--ink);border-color:var(--ink);color:var(--w)}
+
+/* BIG VISUAL CARDS — 50 images grid */
+.vis-mega-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:6px;margin-bottom:2.5rem;
+}
+.vc{
+  position:relative;cursor:pointer;border:2px solid transparent;
+  overflow:hidden;aspect-ratio:4/3;transition:all .2s;
+  background:var(--s);
+}
+.vc:hover{border-color:rgba(184,151,96,.5);transform:scale(1.01)}
+.vc.sel{border-color:var(--ink)}
+.vc.sel::after{
+  content:'✓';position:absolute;top:6px;right:6px;
+  width:20px;height:20px;background:var(--ink);color:var(--w);
+  border-radius:50%;display:grid;place-items:center;
+  font-size:10px;font-weight:600;z-index:2;
+}
+.vc-fill{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.vc:hover .vc-fill{transform:scale(1.05)}
+.vc-lb{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:20px 8px 7px;z-index:1;
+  background:linear-gradient(transparent,rgba(26,24,21,.8));
+  font-size:11px;color:rgba(255,255,255,.85);font-weight:300;letter-spacing:.3px;
+}
+.vc-cat{display:block;font-size:9px;color:rgba(255,255,255,.4);letter-spacing:1px;margin-bottom:2px;text-transform:uppercase}
+
+/* MATERIAL CARDS */
+.mat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:2rem}
+.mc{cursor:pointer;border:2px solid transparent;overflow:hidden;transition:all .2s;background:var(--s)}
+.mc:hover{border-color:rgba(184,151,96,.5)}
+.mc.sel{border-color:var(--ink)}
+.mc-swatch{height:90px;width:100%;display:block}
+.mc-name{padding:8px 10px;font-size:12px;font-weight:300;color:var(--ink);background:var(--w)}
+.mc.sel .mc-name{background:var(--ink);color:rgba(248,245,240,.9)}
+
+/* FILE UPLOAD */
+.upload-zone{
+  border:1px dashed var(--st);padding:2rem;text-align:center;
+  cursor:pointer;transition:border-color .2s;background:var(--w);
+  margin-bottom:1.5rem;
+}
+.upload-zone:hover{border-color:var(--g)}
+.upload-zone input{display:none}
+.upload-icon{font-size:28px;margin-bottom:.75rem;color:var(--li)}
+.upload-title{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--ink);margin-bottom:.4rem}
+.upload-sub{font-size:12px;color:var(--mu);font-weight:300}
+.upload-list{margin-top:.75rem;font-size:12px;color:var(--g)}
+
+/* SCALE — FUN VERSION */
+.fun-q-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:2rem}
+.fun-q{
+  border:1px solid var(--st);background:var(--w);padding:1.5rem;
+  cursor:pointer;transition:all .2s;
+}
+.fun-q:hover{border-color:var(--g)}
+.fun-q.sel{border-color:var(--ink);background:var(--ink)}
+.fun-q-icon{font-size:24px;margin-bottom:.75rem}
+.fun-q-t{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--ink);margin-bottom:.3rem}
+.fun-q.sel .fun-q-t{color:rgba(248,245,240,.95)}
+.fun-q-d{font-size:12px;color:var(--mu);font-weight:300;line-height:1.6}
+.fun-q.sel .fun-q-d{color:rgba(255,255,255,.3)}
+
+/* TEXTAREA */
+.q-area{
+  width:100%;background:var(--w);border:1px solid var(--st);
+  padding:16px 18px;font-family:'Cormorant Garamond',serif;
+  font-size:17px;font-weight:300;color:var(--ink);
+  line-height:1.7;resize:vertical;min-height:80px;
+  outline:none;transition:border-color .2s;margin-bottom:1rem;
+}
+.q-area:focus{border-color:var(--g)}
+.q-area::placeholder{color:var(--li)}
+.q-fl{font-size:9px;letter-spacing:3px;color:var(--mu);text-transform:uppercase;margin-bottom:8px;margin-top:1.2rem}
+.q-inp{
+  width:100%;background:var(--w);border:1px solid var(--st);
+  padding:14px 18px;font-family:'Cormorant Garamond',serif;
+  font-size:17px;font-weight:300;color:var(--ink);
+  outline:none;transition:border-color .2s;margin-bottom:.5rem;
+}
+.q-inp:focus{border-color:var(--g)}
+.q-inp::placeholder{color:var(--li)}
+
+/* BUDGET */
+.budget-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:2rem}
+.bgc{padding:1.5rem;border:1px solid var(--st);cursor:pointer;background:var(--w);text-align:center;transition:all .2s}
+.bgc:hover{border-color:var(--g)}
+.bgc.sel{border-color:var(--ink);background:var(--ink)}
+.bgc-am{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--ink)}
+.bgc.sel .bgc-am{color:rgba(248,245,240,.9)}
+
+/* BASKET */
+.basket-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin-bottom:2rem}
+.bk{padding:1.5rem;border:1px solid var(--st);cursor:pointer;background:var(--w);transition:all .2s;position:relative}
+.bk:hover{border-color:var(--g)}
+.bk.sel{border:2px solid var(--ink)}
+.bk.sel::before{content:'✓';position:absolute;top:12px;right:12px;width:18px;height:18px;background:var(--ink);color:var(--w);border-radius:50%;display:grid;place-items:center;font-size:10px}
+.bk-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;color:var(--ink);margin-bottom:.3rem}
+.bk-desc{font-size:11px;font-weight:300;color:var(--mu);line-height:1.6}
+.bk-price{font-size:10px;letter-spacing:2px;color:var(--g);margin-top:.8rem;text-transform:uppercase}
+
+/* NAV BTNS */
+.qnav-btns{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;border-top:1px solid var(--st);margin-top:1rem}
+.q-back{font-size:10px;letter-spacing:2px;color:var(--mu);background:none;border:none;cursor:pointer;text-transform:uppercase;transition:color .3s}
+.q-back:hover{color:var(--ink)}
+.q-next{display:inline-flex;align-items:center;gap:14px;font-family:'Inter',sans-serif;font-size:11px;font-weight:400;letter-spacing:2px;color:var(--ink);background:none;border:none;cursor:pointer;text-transform:uppercase;transition:gap .3s}
+.q-next:hover{gap:22px}
+.q-nl{width:28px;height:1px;background:var(--ink);transition:width .3s}
+.q-next:hover .q-nl{width:40px}
+.q-submit{display:inline-flex;align-items:center;gap:14px;padding:15px 48px;background:var(--ink);color:var(--w);font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;border:none;cursor:pointer;transition:background .3s}
+.q-submit:hover{background:var(--gr)}
+
+/* GENERATING */
+#genpage{background:var(--ink);min-height:100vh;display:none;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:4rem}
+#genpage.on{display:flex}
+.gen-ring{width:56px;height:56px;border:1px solid rgba(255,255,255,.08);border-top-color:var(--g);border-radius:50%;animation:spin 1.4s linear infinite;margin-bottom:2.5rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.gen-t{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:rgba(248,245,240,.9);margin-bottom:.5rem}
+.gen-s{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.2);text-transform:uppercase}
+.gen-steps{margin-top:3rem;display:flex;flex-direction:column;gap:1rem;max-width:360px;width:100%}
+.gen-step{display:flex;align-items:center;gap:14px;font-size:12px;color:rgba(255,255,255,.15);transition:color .5s}
+.gen-step.active{color:rgba(248,245,240,.6)}
+.gen-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.1);flex-shrink:0;transition:background .5s}
+.gen-step.active .gen-dot{background:var(--g)}
+
+/* RESULT */
+#respage{display:none;background:var(--c)}
+#respage.on{display:block}
+.res-nav{background:rgba(248,245,240,.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--st);padding:18px 7%;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.res-nav-logo{font-size:11px;letter-spacing:4px;color:var(--ink);text-transform:uppercase}
+.res-nav-btn{font-size:10px;letter-spacing:2px;color:var(--mu);background:none;border:none;cursor:pointer;text-transform:uppercase;transition:color .3s}
+.res-nav-btn:hover{color:var(--ink)}
+.res-wrap{max-width:820px;margin:0 auto;padding:4rem 2rem 6rem}
+.res-cover{text-align:center;padding:3.5rem 2rem;border:1px solid var(--g);margin-bottom:1.5rem;background:var(--w)}
+.res-tag{font-size:9px;letter-spacing:4px;color:var(--mu);text-transform:uppercase;margin-bottom:1.5rem}
+.res-gd{width:40px;height:1px;background:var(--g);margin:1.5rem auto}
+.res-name{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,46px);font-weight:300;font-style:italic;color:var(--ink)}
+.res-idea{font-size:14px;font-weight:300;color:var(--mu);line-height:1.9;max-width:480px;margin:1rem auto 0}
+.res-sec{border:1px solid var(--st);padding:2rem;margin-bottom:1rem;background:var(--w)}
+.res-n{font-size:9px;letter-spacing:3px;color:var(--g);margin-bottom:.5rem;text-transform:uppercase}
+.res-st{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--ink);margin-bottom:.75rem}
+.res-b{font-size:14px;font-weight:300;color:var(--mu);line-height:2;white-space:pre-wrap}
+.basket-summary{border:1px solid var(--g);padding:2rem;margin-bottom:1rem;background:var(--w)}
+.basket-sum-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--ink);margin-bottom:1.5rem}
+.basket-sum-item{display:flex;justify-content:space-between;align-items:center;padding:.75rem 0;border-bottom:1px solid var(--st);font-size:14px;font-weight:300}
+.basket-sum-item:last-child{border-bottom:none;font-weight:500;padding-top:1rem}
+.basket-sum-price{color:var(--g);font-family:'Cormorant Garamond',serif;font-size:17px}
+.res-cta{text-align:center;padding:3rem 0}
+.res-cta-t{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--ink);margin-bottom:.75rem}
+.res-cta-s{font-size:14px;color:var(--mu);margin-bottom:2rem;font-weight:300}
+.res-btn-p{display:inline-flex;align-items:center;gap:14px;padding:15px 44px;background:var(--ink);color:var(--w);font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;border:none;cursor:pointer;transition:background .3s;text-decoration:none}
+.res-btn-p:hover{background:var(--gr)}
+.res-btn-s{display:inline-flex;align-items:center;gap:14px;padding:15px 44px;border:1px solid var(--st);background:transparent;color:var(--mu);font-family:'Inter',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .3s;margin-left:1rem}
+.res-btn-s:hover{border-color:var(--ink);color:var(--ink)}
+
+/* MOBILE */
+@media(max-width:768px){
+  .land-hero{grid-template-columns:1fr;padding:40px 5% 60px;min-height:auto}
+  .land-hero-img{display:none}
+  .land-h{font-size:36px}
+  .value-grid{grid-template-columns:1fr}
+  .val-cell{border-right:none;border-bottom:1px solid rgba(255,255,255,.06)}
+  .what-grid{grid-template-columns:1fr}
+  .what-item{border-right:none;padding:1.5rem 0}
+  .mosaic{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .mos-c.tall{grid-row:auto}
+  .type-grid{grid-template-columns:1fr 1fr}
+  .vis-mega-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  .mat-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
+  .fun-q-grid{grid-template-columns:1fr}
+  .qstep{padding:90px 5% 60px}
+  .qnav{padding:14px 5%}
+  .qprog-wrap{display:none}
+  .basket-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════ LANDING ════════ -->
+<div class="pg on" id="landing">
+
+<nav class="land-nav">
+  <a href="#" class="land-logo">
+    <div class="land-logo-c"></div>
+    <span class="land-logo-t">4 Элемента</span>
+  </a>
+  <span style="font-size:10px;letter-spacing:2px;color:var(--mu);text-transform:uppercase">Бюро концепций · Since 2150</span>
+</nav>
+
+<div class="land-hero">
+  <div class="land-content">
+    <div class="land-tag">Инновационный подход к проектированию</div>
+    <h1 class="land-h">
+      Мы создаём<br>пространства,<br>которые <em>чувствуют вас.</em>
+    </h1>
+    <div class="land-d"></div>
+    <p class="land-sub">Архитектура. Интерьер. Ландшафт. Коммерция.<br>Бюро полного цикла — от первого образа до реализации.</p>
+    <button class="btn-start-main" onclick="startQuiz()">
+      Создать мою концепцию
+      <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M11 1L15 5L11 9M1 5H15" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+    </button>
+    <p class="price-tag-hero">Концепт-проект — <strong>25 000 ₽</strong></p>
+  </div>
+  <div class="land-hero-img">
+    <div class="hero-img-main-fake"></div>
+
+  </div>
+</div>
+
+<!-- VALUE BLOCKS — dark bg, white text -->
+<div class="value-grid">
+  <div class="val-cell">
+    <div class="val-num">01</div>
+    <div class="val-title">Считываем вашу личность</div>
+    <p class="val-desc">Наши дизайнеры используют уникальную методику — анализируют ваши ощущения, образ жизни и скрытые желания. Не только то, что вы говорите, но и то, что чувствуете.</p>
+  </div>
+  <div class="val-cell">
+    <div class="val-num">02</div>
+    <div class="val-title">Создаём вашу концепцию</div>
+    <p class="val-desc">После оплаты — в течение 24 часов вы получите готовый концепт-проект. Одна правка включена. Финальная версия — в течение 72 часов.</p>
+  </div>
+  <div class="val-cell">
+    <div class="val-num">03</div>
+    <div class="val-title">Воплощаем в реальность</div>
+    <p class="val-desc">Мы бюро полного цикла. После концепции — рабочая документация, авторский надзор и реализация под ключ. Всё в одних руках.</p>
+  </div>
+</div>
+
+<!-- PHOTO MOSAIC -->
+<div class="mosaic">
+  <div class="mos-c tall">
+    <div class="mos-fake" style="background:linear-gradient(155deg,#C4A882,#8B7355);height:100%"></div>
+    <span class="mos-lb">Ландшафт</span>
+  </div>
+  <div class="mos-c">
+    <div class="mos-fake" style="background:linear-gradient(135deg,#DDD0B8,#C4A882);height:100%"></div>
+    <span class="mos-lb">Интерьер</span>
+  </div>
+  <div class="mos-c">
+    <div class="mos-fake" style="background:linear-gradient(180deg,#E8E0D0,#C8BEA8);height:100%"></div>
+    <span class="mos-lb">Архитектура</span>
+  </div>
+  <div class="mos-c">
+    <div class="mos-fake" style="background:linear-gradient(135deg,#3D4A2E,#2A3520);height:100%"></div>
+    <span class="mos-lb">Озеленение</span>
+  </div>
+  <div class="mos-c">
+    <div class="mos-fake" style="background:linear-gradient(135deg,#5A4A38,#2A1A0A);height:100%"></div>
+    <span class="mos-lb">Материалы</span>
+  </div>
+</div>
+
+<!-- WHAT YOU GET -->
+<div class="what-section">
+  <div class="what-inner">
+    <div class="sec-ey">Что входит в концепт-проект</div>
+    <h2 class="sec-t">Всё необходимое для<br><em>правильных решений.</em></h2>
+    <div class="what-grid">
+      <div class="what-item"><div class="wi-n">01</div><div class="wi-name">Философия проекта</div><p class="wi-desc">Концепция вашего пространства — написанная под вас, про вас и вашу жизнь.</p></div>
+      <div class="what-item"><div class="wi-n">02</div><div class="wi-name">Планировка и зонирование</div><p class="wi-desc">Эскиз с описанием каждой зоны, её назначения и атмосферы.</p></div>
+      <div class="what-item"><div class="wi-n">03</div><div class="wi-name">Материалы и покрытия</div><p class="wi-desc">Конкретные материалы с визуальными референсами — что, где и почему.</p></div>
+      <div class="what-item"><div class="wi-n">04</div><div class="wi-name">Озеленение и декор</div><p class="wi-desc">Подбор растений, мебели и декоративных элементов под ваш стиль.</p></div>
+      <div class="what-item"><div class="wi-n">05</div><div class="wi-name">Световые сценарии</div><p class="wi-desc">Как пространство будет выглядеть утром, вечером и ночью.</p></div>
+      <div class="what-item"><div class="wi-n">06</div><div class="wi-name">Смета и дорожная карта</div><p class="wi-desc">Ориентировочный бюджет и порядок работ — с чего начать.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICE -->
+<div class="price-section">
+  <div class="price-inner">
+    <div class="sec-ey">Стоимость</div>
+    <h2 class="sec-t" style="text-align:center">Инвестиция в пространство,<br>которое <em>изменит вашу жизнь.</em></h2>
+    <div class="sec-d" style="margin:2rem auto"></div>
+    <div class="price-amount">25 000 ₽</div>
+    <p class="price-sub">Оплата после заполнения анкеты · Концепт через 24 часа</p>
+    <div class="price-includes">
+      <div class="price-item"><span class="price-check">—</span>Полный концепт-проект в формате PDF</div>
+      <div class="price-item"><span class="price-check">—</span>Философия пространства и lifestyle narrative</div>
+      <div class="price-item"><span class="price-check">—</span>Планировка с зонированием и описанием зон</div>
+      <div class="price-item"><span class="price-check">—</span>Материалы и покрытия с визуальными референсами</div>
+      <div class="price-item"><span class="price-check">—</span>Озеленение и декор под ваш стиль и климат</div>
+      <div class="price-item"><span class="price-check">—</span>Световые сценарии — утро, вечер, ночь</div>
+      <div class="price-item"><span class="price-check">—</span>Ориентировочная смета и дорожная карта</div>
+      <div class="price-item"><span class="price-check">—</span>Онлайн-встреча с дизайнером после получения концепции</div>
+    </div>
+    <button class="btn-start-main" onclick="startQuiz()">
+      Заполнить анкету — 15 минут
+      <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M11 1L15 5L11 9M1 5H15" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+    </button>
+    <p class="price-note">Анкета бесплатна · Оплата сразу после заполнения</p>
+  </div>
+</div>
+</div><!-- /landing -->
+
+<!-- ════════ QUESTIONNAIRE ════════ -->
+<div class="pg" id="qpage">
+<div class="qnav">
+  <a href="#" class="qnav-logo" onclick="showLanding()"><div class="logo-c"></div>4 Элемента</a>
+  <div class="qprog-wrap"><div class="qprog" id="qprog"></div></div>
+  <span class="step-counter" id="step-counter">Шаг 1 из 9</span>
+</div>
+
+<!-- S1: ТИП -->
+<div class="qstep" id="qs1">
+  <div class="q-ey">Шаг 01 · Начало</div>
+  <h2 class="q-t">Что вы хотите<br><em>создать?</em></h2>
+  <p class="q-hint">Выберите один вариант — дальнейшие вопросы подстроятся под ваш выбор</p>
+  <div class="type-grid">
+    <div class="tc" data-g="type" data-v="interior" onclick="selectType(this,'interior')">
+      <div class="tc-icon">🏠</div><div class="tc-name">Интерьер</div>
+      <p class="tc-desc">Квартира, дом, комната. Планировка, отделка, мебель.</p>
+      <div class="tc-price">25 000 ₽</div>
+    </div>
+    <div class="tc" data-g="type" data-v="landscape" onclick="selectType(this,'landscape')">
+      <div class="tc-icon">🌿</div><div class="tc-name">Ландшафт</div>
+      <p class="tc-desc">Сад, участок, территория вокруг дома.</p>
+      <div class="tc-price">25 000 ₽</div>
+    </div>
+    <div class="tc" data-g="type" data-v="architecture" onclick="selectType(this,'architecture')">
+      <div class="tc-icon">🏛</div><div class="tc-name">Архитектура</div>
+      <p class="tc-desc">Концепция дома, фасада, объёма.</p>
+      <div class="tc-price">25 000 ₽</div>
+    </div>
+    <div class="tc" data-g="type" data-v="commercial" onclick="selectType(this,'commercial')">
+      <div class="tc-icon">◈</div><div class="tc-name">Коммерция</div>
+      <p class="tc-desc">Кафе, ресторан, офис, магазин, отель.</p>
+      <div class="tc-price">25 000 ₽</div>
+    </div>
+  </div>
+  <div class="qnav-btns"><span></span><button class="q-next" onclick="qgo(2)">Далее <span class="q-nl"></span></button></div>
+</div>
+
+<!-- S2: О ВАС -->
+<div class="qstep" id="qs2">
+  <div class="q-ey">Шаг 02 · О вас</div>
+  <h2 class="q-t">Несколько слов<br><em>о вас и объекте</em></h2>
+  <p class="q-hint">Быстро — дальше будут интересные вопросы</p>
+  <div class="q-fl">Ваше имя</div>
+  <input class="q-inp" id="f-name" placeholder="Как к вам обращаться?">
+  <div class="q-fl">Город</div>
+  <input class="q-inp" id="f-city" placeholder="Где находится объект?">
+  <div class="q-fl">Площадь</div>
+  <input class="q-inp" id="f-area" placeholder="Примерно — м² или соток">
+  <div class="q-fl" style="margin-top:1.5rem">Кто будет здесь жить или работать?</div>
+  <div class="pills">
+    <div class="pill" data-g="who">Я один / одна</div>
+    <div class="pill" data-g="who">Я и партнёр</div>
+    <div class="pill" data-g="who">Семья с детьми</div>
+    <div class="pill" data-g="who">Большая семья</div>
+    <div class="pill" data-g="who">Для клиентов / гостей</div>
+  </div>
+  <div class="qnav-btns"><button class="q-back" onclick="qgo(1)">← Назад</button><button class="q-next" onclick="qgo(3)">Далее <span class="q-nl"></span></button></div>
+</div>
+
+<!-- S3: ОЩУЩЕНИЕ -->
+<div class="qstep" id="qs3">
+  <div class="q-ey">Шаг 03 · Ощущение</div>
+  <h2 class="q-t">Как вы хотите<br><em>себя чувствовать</em><br>каждый день?</h2>
+  <p class="q-hint">Выберите всё, что откликается. Это важнее, чем стиль.</p>
+  <div class="pills">
+    <div class="pill" data-g="feel">Спокойно и расслабленно</div>
+    <div class="pill" data-g="feel">Вдохновлённо и творчески</div>
+    <div class="pill" data-g="feel">Защищённо и безопасно</div>
+    <div class="pill" data-g="feel">Свободно и легко</div>
+    <div class="pill" data-g="feel">Тепло и уютно</div>
+    <div class="pill" data-g="feel">Статусно и представительно</div>
+    <div class="pill" data-g="feel">Наедине с собой</div>
+    <div class="pill" data-g="feel">В гармонии с природой</div>
+    <div class="pill" data-g="feel">Медленно и осознанно</div>
+    <div class="pill" data-g="feel">Энергично и активно</div>
+    <div class="pill" data-g="feel">Глубоко и содержательно</div>
+    <div class="pill" data-g="feel">Празднично и ярко</div>
+  </div>
+  <div class="qnav-btns"><button class="q-back" onclick="qgo(2)">← Назад</button><button class="q-next" onclick="qgo(4)">Далее <span class="q-nl"></span></button></div>
+</div>
+
+<!-- S4: ВИЗУАЛЬНЫЙ ВЫБОР — 40+ карточек -->
+<div class="qstep" id="qs4">
+  <div class="q-ey">Шаг 04 · Визуальный выбор</div>
+  <h2 class="q-t">Что вам<br><em>нравится на вид?</em></h2>
+  <p class="q-hint">Выбирайте всё, что приятно смотреть — не думайте о стиле или названии. Просто реагируйте.</p>
+  <div class="vis-mega-grid" id="vis-grid"></div>
+  <div class="qnav-btns"><button class="q-back" onclick="qgo(3)">← Назад</button><button class="q-next" onclick="qgo(5)">Далее <span class="q-nl"></span></button></div>
+</div>
+
+<!-- S5: СЦЕНАРИИ ЖИЗНИ -->
+<div class="qstep" id="qs5">
+  <div class="q-ey">Шаг 05 · Жизнь в пространстве</div>
+  <h2 class="q-t">Что должно<br><em>происходить</em><br>здесь?</h2>
+  <p class="q-hint">Выберите всё важное — это поможет правильно расставить зоны</p>
+  <div class="pills">
+    <div class="pill" data-g="life">Утреннее кофе в тишине</div>
+    <div class="pill" data-g="life">Работать из дома</div>
+    <div class="pill" data-g="life">Принимать гостей</div>
+    <div class="pill" data-g="life">Семейные ужины</div>
+    <div class="pill" data-g="life">Место для детей</div>
+    <div class="pill" data-g="life">Спорт и активность</div>
+    <div class="pill" data-g="life">Читать и размышлять</div>
+    <div class="pill" data-g="life">Медитация и практики</div>
+    <div class="pill" data-g="life">Слушать музыку</div>
+    <div class="pill" data-g="life">Готовить</div>
+    <div class="pill" data-g="life">Выращивать растения</div>
+    <div class="pill" data-g="life">Творить и создавать</div>
+    <div class="pill" data-g="life">Отдых у бассейна</div>
+    <div class="pill" data-g="life">Барбекю и огонь</div>
+    <div class="pill" data-g="life">Абсолютная тишина</div>
+    <div class="pill" data-g="life">Вечерний свет и свечи</div>
+  </div>
+  <div class="qnav-btns"><button class="q-back" onclick="qgo(4)">← Назад</button><button class="q-next" onclick="qgo(6)">Далее <span class="q-nl"></span></button></div>
+</div>
+
+<!-- S6: МАТЕРИАЛЫ ВИЗУАЛЬНО -->
+<div class="qstep" id="qs6">
+  <div class="q-ey">Шаг 06 · Материалы</div>
+  <h2 class="q-t">Какие материалы<br><em>вам близки?</em></h2>
+  <p class="q-hint">Выберите что нравится — и по ощущению, и визуально</p>
+  <div class="mat-grid" id="mat-grid"></div>
+
+  <div style="margin:1.5rem 0 1rem;font-size:9px;letter-spacing:3px;color:var(--mu);text-transform:uppercase">Свет — что ближе?</div>
+  <div class="pills">
+    <div class="pill" data-g="light">Много яркого дневного</div>
+    <div class="pill" data-g="light">Тёплый приглушённый вечерний</div>
+    <div class="pill" data-g="light">Акценты на деталях</div>
+    <div class="pill" data-g="light">Свечи и живой огонь</div>
+    <div class="pill" data-g="light">Мягкий равномерный</div>
+    <div class="pill" data-g="light">Игра теней и полутени</div>
+  </div>
+
+  <div style="margin:1.5rem 0 1rem;font-size:9px;letter-spacing:3px;color:var(--mu);text-transform:uppercase">Цвета — какие оттенки ближе?</div>
+  <div class="pills">
+    <div class="pill" data-g="color">Белый и молочный</div>
+    <div class="pill" data-g="color">Бежевый и песочный</div>
+    <div class="pill" data-g="color">Серый и графит</div>
+    <div class="pill" data-g="color">Тёмный и почти чёрный</div>
+    <div class="pill" data-g="color">Зелёный — оливковый или изумруд</div>
+    <div class="pill" data-g="color">Синий и морской</div>
+    <div class="pill" data-g="color">Тёплые земляные тона</div>
+    <div class="pill" data-g="color">Яркие акценты</div>
+  </div>
+  <div class="qnav-btns"><button class="q-back" onclick="qgo(5)">← Назад</button><button class="q-next" onclick="qgo(7)">Далее <span class="q-nl"></span></button></div>
+</div>
+
+<!-- S7: ХАРАКТЕР — игровой формат -->
+<div class="qstep" id="qs7">
+  <div class="q-ey">Шаг 07 · Ваш характер</div>
+  <h2 class="q-t">Выберите то,<br><em>что больше про вас</em></h2>
+  <p class="q-hint">Не думайте долго — выбирайте первое, что откликается</p>
+
+  <div class="fun-q-grid">
+    <div class="fun-q" data-g="char" data-v="Уют и тепло"><div class="fun-q-icon">🕯</div><div class="fun-q-t">Уют и тепло</div><p class="fun-q-d">Мягкий свет, тёплые материалы, ощущение объятий</p></div>
+    <div class="fun-q" data-g="char" data-v="Чистота и порядок"><div class="fun-q-icon">◻</div><div class="fun-q-t">Чистота и порядок</div><p class="fun-q-d">Минимум лишнего, всё на своём месте, воздух</p></div>
+    <div class="fun-q" data-g="char" data-v="Природа и живое"><div class="fun-q-icon">🌿</div><div class="fun-q-t">Природа и живое</div><p class="fun-q-d">Растения, дерево, камень, ощущение леса или сада</p></div>
+    <div class="fun-q" data-g="char" data-v="Статус и красота"><div class="fun-q-icon">◈</div><div class="fun-q-t">Статус и красота</div><p class="fun-q-d">Дорогие материалы, детали, которые говорят сами за себя</p></div>
+    <div class="fun-q" data-g="char" data-v="Творчество и характер"><div class="fun-q-icon">✦</div><div class="fun-q-t">Творчество и характер</div><p class="fun-q-d">Нестандартные решения, своя эстетика, не как у всех</p></div>
+    <div class="fun-q" data-g="char" data-v="Практичность и функция"><div class="fun-q-icon">⚙</div><div class="fun-q-t">Практичность и функция</div><p class="fun-q-d">Всё продумано, удобно, без лишнего. Красота через функцию</p></div>
+  </div>
+
+  <div class="q-fl">Есть место в мире, где вы чувствовали себя «в своей тарелке»? Расскажите о нём</div>
+  <textarea class="q-area" id="f-place" placeholder="Отель, дом у кого-то, ресторан, природа... что в нём особенного?"></textarea>
+
+  <div class="q-fl">Что точно НЕ должно быть в вашем пространстве?</div>
+  <textarea class="q-area" id="f-never" placeholder="Любые детали важны — стиль, материал, цвет, ощущение..." style="min-height:70px"></textarea>
+
+  <!-- FILE UPLOAD -->
+  <div class="q-fl">Есть референсы? Загрузите фото, скриншоты, что угодно</div>
+  <div class="upload-zone" onclick="document.getElementById('file-upload').click()">
+    <input type="file" id="file-upload" multiple accept="image/*,.pdf" onchange="handleFiles(this)">
+    <div class="upload-icon">↑</div>
+    <div class="upload-title">Нажмите чтобы загрузить</div>
+    <p class="upload-sub">Фото, скриншоты из Pinterest, Instagram, любые изображения</p>
+    <div class="upload-list" id="upload-list"></div>
+  </div>
+
+  <div class="qnav-btns"><button class="q-back" onclick="qgo(6)">← Назад</button><button class="q-next" onclick="qgo(8)">Далее <span class="q-nl"></span></button></div>
+</div>
+
+<!-- S8: БЮДЖЕТ -->
+<div class="qstep" id="qs8">
+  <div class="q-ey">Шаг 08 · Бюджет и сроки</div>
+  <h2 class="q-t">Планируемый бюджет<br><em>на реализацию</em></h2>
+  <p class="q-hint">Поможет предложить реалистичные решения. Мы работаем с любым бюджетом.</p>
+  <div class="budget-grid">
+    <div class="bgc" data-g="budget"><div class="bgc-am">до 500 тыс.</div></div>
+    <div class="bgc" data-g="budget"><div class="bgc-am">500 тыс. — 1 млн</div></div>
+    <div class="bgc" data-g="budget"><div class="bgc-am">1–3 млн</div></div>
+    <div class="bgc" data-g="budget"><div class="bgc-am">3–10 млн</div></div>
+    <div class="bgc" data-g="budget"><div class="bgc-am">10–30 млн</div></div>
+    <div class="bgc" data-g="budget"><div class="bgc-am">30+ млн</div></div>
+    <div class="bgc" data-g="budget"><div class="bgc-am">Пока не знаю</div></div>
+  </div>
+  <div class="q-fl">Когда планируете начать?</div>
+  <div class="pills">
+    <div class="pill" data-g="timing">Как можно скорее</div>
+    <div class="pill" data-g="timing">Через 3–6 месяцев</div>
+    <div class="pill" data-g="timing">Через год</div>
+    <div class="pill" data-g="timing">Пока изучаю возможности</div>
+  </div>
+  <div class="q-fl">Телефон или email для связи с дизайнером</div>
+  <input class="q-inp" id="f-contact" placeholder="+7 или email">
+  <div class="qnav-btns"><button class="q-back" onclick="qgo(7)">← Назад</button><button class="q-next" onclick="qgo(9)">Далее <span class="q-nl"></span></button></div>
+</div>
+
+<!-- S9: КОРЗИНА -->
+<div class="qstep" id="qs9">
+  <div class="q-ey">Шаг 09 · Дополнительные услуги</div>
+  <h2 class="q-t">Что ещё может<br><em>понадобиться?</em></h2>
+  <p class="q-hint">Отметьте интересное — мы включим это в обсуждение. Можно пропустить.</p>
+  <div class="basket-grid">
+    <div class="bk" data-g="basket" data-v="Рабочая документация" data-price="от 80 000 ₽"><div class="bk-name">Рабочая документация</div><p class="bk-desc">Полный пакет чертежей для строителей</p><div class="bk-price">от 80 000 ₽</div></div>
+    <div class="bk" data-g="basket" data-v="3D-визуализация" data-price="от 30 000 ₽"><div class="bk-name">3D-визуализация</div><p class="bk-desc">Фотореалистичные изображения вашего пространства</p><div class="bk-price">от 30 000 ₽</div></div>
+    <div class="bk" data-g="basket" data-v="Авторский надзор" data-price="договорная"><div class="bk-name">Авторский надзор</div><p class="bk-desc">Контроль реализации — дизайнер следит за качеством</p><div class="bk-price">договорная</div></div>
+    <div class="bk" data-g="basket" data-v="Подбор и закупка материалов" data-price="10% от бюджета"><div class="bk-name">Подбор и закупка</div><p class="bk-desc">Материалы, мебель и декор — подберём и купим</p><div class="bk-price">10% от бюджета</div></div>
+    <div class="bk" data-g="basket" data-v="Реализация под ключ" data-price="договорная"><div class="bk-name">Под ключ</div><p class="bk-desc">Берём всё на себя — от проекта до готового объекта</p><div class="bk-price">договорная</div></div>
+    <div class="bk" data-g="basket" data-v="Озеленение и посадки" data-price="от 50 000 ₽"><div class="bk-name">Озеленение</div><p class="bk-desc">Подбор, поставка и посадка растений</p><div class="bk-price">от 50 000 ₽</div></div>
+  </div>
+  <div class="qnav-btns"><button class="q-back" onclick="qgo(8)">← Назад</button><button class="q-submit" onclick="generate()">Отправить и оплатить →</button></div>
+</div>
+</div><!-- /qpage -->
+
+<!-- GENERATING -->
+<div class="pg" id="genpage">
+  <div class="gen-ring"></div>
+  <div class="gen-t" id="gen-t">Изучаем ваши ответы...</div>
+  <div class="gen-s">Дизайнер анализирует запрос</div>
+  <div class="gen-steps">
+    <div class="gen-step" id="gs1"><div class="gen-dot"></div>Считываем образ жизни и ценности</div>
+    <div class="gen-step" id="gs2"><div class="gen-dot"></div>Определяем стиль и атмосферу</div>
+    <div class="gen-step" id="gs3"><div class="gen-dot"></div>Формируем философию пространства</div>
+    <div class="gen-step" id="gs4"><div class="gen-dot"></div>Подбираем материалы и решения</div>
+    <div class="gen-step" id="gs5"><div class="gen-dot"></div>Готовим концепт-проект</div>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div class="pg" id="respage">
+  <div class="res-nav">
+    <span class="res-nav-logo">4 Элемента · Заявка принята</span>
+    <button class="res-nav-btn" onclick="showLanding()">← На главную</button>
+  </div>
+  <div class="res-wrap">
+    <div id="res-content"></div>
+    <div id="basket-summary"></div>
+    <!-- PAYMENT BLOCK -->
+    <div id="payment-block" style="display:none">
+      <div class="res-sec" style="border-color:var(--g)">
+        <div class="res-n">Оплата</div>
+        <div class="res-st">Концепт-проект — 25 000 ₽</div>
+        <div class="res-b" style="margin-bottom:1.5rem">После оплаты дизайнер приступает к работе. Концепт-проект — в течение 24 часов. Одна правка включена. Финальная версия — в течение 72 часов после правки.</div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap">
+          <a href="https://www.tinkoff.ru" target="_blank" class="res-btn-p" style="text-decoration:none">Оплатить 25 000 ₽ →</a>
+          <a href="tel:+79615332333" class="res-btn-s" style="text-decoration:none">Позвонить нам</a>
+        </div>
+      </div>
+    </div>
+    <!-- CONTRACT BLOCK (placeholder) -->
+    <div id="contract-block" style="display:none">
+      <div class="res-sec">
+        <div class="res-n">Договор</div>
+        <div class="res-st">Договор на оказание услуг</div>
+        <div class="res-b">Перед оплатой ознакомьтесь с договором. Оплачивая услугу, вы соглашаетесь с условиями.</div>
+        <div style="margin-top:1rem">
+          <a href="#" class="res-btn-s" style="text-decoration:none;display:inline-flex">Читать договор →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──
+const VIS_CARDS = [
+  // INTERIOR
+  {cat:'Интерьер',name:'Тёплый минимализм',bg:'linear-gradient(155deg,#DDD0B8,#C4A882)'},
+  {cat:'Интерьер',name:'Японский стиль',bg:'linear-gradient(150deg,#2C2A26,#1A1814)'},
+  {cat:'Интерьер',name:'Скандинавский',bg:'linear-gradient(135deg,#E8E4DC,#C8C0B0)'},
+  {cat:'Интерьер',name:'Классика белая',bg:'linear-gradient(135deg,#F0EBE0,#E0D8C8)'},
+  {cat:'Интерьер',name:'Тёмный люкс',bg:'linear-gradient(135deg,#2A2820,#1A1815)'},
+  {cat:'Интерьер',name:'Эко-стиль',bg:'linear-gradient(135deg,#3D4A2E,#2A3520)'},
+  {cat:'Интерьер',name:'Средиземноморье',bg:'linear-gradient(135deg,#C4A882,#8B7355)'},
+  {cat:'Интерьер',name:'Прованс',bg:'linear-gradient(135deg,#D4C8A8,#B8A888)'},
+  {cat:'Интерьер',name:'Лофт',bg:'linear-gradient(135deg,#5A5A5A,#3A3A3A)'},
+  {cat:'Интерьер',name:'Индустриальный',bg:'linear-gradient(135deg,#4A4A4A,#2A2A2A)'},
+  {cat:'Интерьер',name:'Арт-деко',bg:'linear-gradient(135deg,#B89760,#6A5A40)'},
+  {cat:'Интерьер',name:'Ретро-модерн',bg:'linear-gradient(135deg,#8B7A60,#5A4A35)'},
+  {cat:'Интерьер',name:'Биофильный дизайн',bg:'linear-gradient(135deg,#4A6A3A,#2A4A20)'},
+  {cat:'Интерьер',name:'Контемпорари',bg:'linear-gradient(135deg,#D0C8B8,#A8A090)'},
+  {cat:'Интерьер',name:'Wabi-sabi',bg:'linear-gradient(155deg,#C4B8A0,#8A7A65)'},
+  {cat:'Интерьер',name:'Максимализм',bg:'linear-gradient(135deg,#6A3A5A,#3A1A2A)'},
+  // LANDSCAPE
+  {cat:'Ландшафт',name:'Средиземноморский сад',bg:'linear-gradient(135deg,#7A8A60,#5A6A45)'},
+  {cat:'Ландшафт',name:'Английский сад',bg:'linear-gradient(135deg,#4A6A3A,#2A4A20)'},
+  {cat:'Ландшафт',name:'Японский сад',bg:'linear-gradient(150deg,#3A4A35,#1A2A15)'},
+  {cat:'Ландшафт',name:'Минималистичный',bg:'linear-gradient(135deg,#E0D8C8,#C0B8A8)'},
+  {cat:'Ландшафт',name:'Дикий сад',bg:'linear-gradient(135deg,#5A7A4A,#3A5A2A)'},
+  {cat:'Ландшафт',name:'Французский',bg:'linear-gradient(135deg,#8A9A60,#6A7A45)'},
+  {cat:'Ландшафт',name:'Пустынный',bg:'linear-gradient(135deg,#C4A882,#8B7355)'},
+  {cat:'Ландшафт',name:'Тропический',bg:'linear-gradient(135deg,#1A3A25,#2A5A35)'},
+  {cat:'Ландшафт',name:'Скандинавский',bg:'linear-gradient(135deg,#5A6A7A,#3A4A5A)'},
+  {cat:'Ландшафт',name:'Лесной',bg:'linear-gradient(135deg,#1A2A15,#2A3D20)'},
+  {cat:'Ландшафт',name:'С бассейном',bg:'linear-gradient(135deg,#3A6A8A,#1A4A6A)'},
+  {cat:'Ландшафт',name:'Водный сад',bg:'linear-gradient(180deg,#7BA7BC,#1A4A6A)'},
+  // ARCHITECTURE
+  {cat:'Архитектура',name:'Современный дом',bg:'linear-gradient(135deg,#D0C8B8,#A8A090)'},
+  {cat:'Архитектура',name:'Минималистичный',bg:'linear-gradient(135deg,#E8E4DC,#C8C0B0)'},
+  {cat:'Архитектура',name:'Классический',bg:'linear-gradient(135deg,#E0D8C8,#C0B8A8)'},
+  {cat:'Архитектура',name:'Брутализм',bg:'linear-gradient(135deg,#7A7A7A,#4A4A4A)'},
+  {cat:'Архитектура',name:'Органическая',bg:'linear-gradient(135deg,#4A6A3A,#2A4A20)'},
+  {cat:'Архитектура',name:'Средиземноморская',bg:'linear-gradient(135deg,#C4A882,#8B7355)'},
+  {cat:'Архитектура',name:'Скандинавская',bg:'linear-gradient(135deg,#5A6A7A,#3A4A5A)'},
+  {cat:'Архитектура',name:'Исторический стиль',bg:'linear-gradient(135deg,#8B7A60,#5A4A35)'},
+  // COMMERCIAL
+  {cat:'Коммерция',name:'Минималистичное кафе',bg:'linear-gradient(135deg,#DDD0B8,#C4A882)'},
+  {cat:'Коммерция',name:'Уютный ресторан',bg:'linear-gradient(135deg,#5A3A15,#2A1A08)'},
+  {cat:'Коммерция',name:'Luxury отель',bg:'linear-gradient(135deg,#2A2820,#1A1815)'},
+  {cat:'Коммерция',name:'Бутик-магазин',bg:'linear-gradient(135deg,#B89760,#6A5A40)'},
+  {cat:'Коммерция',name:'Современный офис',bg:'linear-gradient(135deg,#D0C8B8,#A8A090)'},
+  {cat:'Коммерция',name:'Лофт-пространство',bg:'linear-gradient(135deg,#5A5A5A,#3A3A3A)'},
+  {cat:'Коммерция',name:'Wellness центр',bg:'linear-gradient(135deg,#4A6A3A,#2A4A20)'},
+  {cat:'Коммерция',name:'Арт-пространство',bg:'linear-gradient(135deg,#3A3A5A,#1A1A3A)'},
+];
+
+const MAT_CARDS = [
+  {name:'Травертин',bg:'linear-gradient(135deg,#E8D5B7,#C4A882)'},
+  {name:'Тёплый камень',bg:'linear-gradient(135deg,#C4B49A,#8B7A6A)'},
+  {name:'Светлое дерево',bg:'linear-gradient(135deg,#D4B483,#B89760)'},
+  {name:'Тёмное дерево',bg:'linear-gradient(135deg,#5C4A35,#3A2E20)'},
+  {name:'Белая штукатурка',bg:'linear-gradient(135deg,#F0EBE0,#E0D8C8)'},
+  {name:'Бетон',bg:'linear-gradient(135deg,#8A8A8A,#5A5A5A)'},
+  {name:'Кирпич',bg:'linear-gradient(135deg,#A05A40,#6A3A25)'},
+  {name:'Мрамор белый',bg:'linear-gradient(135deg,#F5F2EC,#E8E4DC)'},
+  {name:'Мрамор чёрный',bg:'linear-gradient(135deg,#2A2A2A,#1A1A1A)'},
+  {name:'Лён и текстиль',bg:'linear-gradient(135deg,#D4C8B0,#B8A88A)'},
+  {name:'Металл',bg:'linear-gradient(135deg,#8A8A7A,#5A5A50)'},
+  {name:'Галька и гравий',bg:'linear-gradient(135deg,#C4C0B8,#A0A098)'},
+  {name:'Терракота',bg:'linear-gradient(135deg,#C4704A,#8A4A2A)'},
+  {name:'Раттан и плетение',bg:'linear-gradient(135deg,#C4A070,#8A6A40)'},
+  {name:'Зеркало и стекло',bg:'linear-gradient(135deg,#B0C4D4,#7A9AAA)'},
+  {name:'Бархат',bg:'linear-gradient(135deg,#5A3A6A,#3A1A4A)'},
+];
+
+// ── BUILD GRIDS ──
+function buildVisGrid(){
+  const g=document.getElementById('vis-grid');
+  if(!g)return;
+  g.innerHTML='';
+  VIS_CARDS.forEach((c,i)=>{
+    const d=document.createElement('div');
+    d.className='vc';
+    d.dataset.g='vis';
+    d.dataset.v=c.name;
+    d.innerHTML=`<div class="vc-fill" style="background:${c.bg};width:100%;height:100%"></div>
+      <div class="vc-lb"><span class="vc-cat">${c.cat}</span>${c.name}</div>`;
+    d.addEventListener('click',()=>d.classList.toggle('sel'));
+    g.appendChild(d);
+  });
+}
+function buildMatGrid(){
+  const g=document.getElementById('mat-grid');
+  if(!g)return;
+  g.innerHTML='';
+  MAT_CARDS.forEach(c=>{
+    const d=document.createElement('div');
+    d.className='mc';
+    d.dataset.g='mat';
+    d.dataset.v=c.name;
+    d.innerHTML=`<div class="mc-swatch" style="background:${c.bg}"></div><div class="mc-name">${c.name}</div>`;
+    d.addEventListener('click',()=>d.classList.toggle('sel'));
+    g.appendChild(d);
+  });
+}
+
+// ── SCREENS ──
+function show(id){
+  ['landing','qpage','genpage','respage'].forEach(s=>{
+    const el=document.getElementById(s);
+    if(el){el.classList.remove('on');el.style.display='none'}
+  });
+  const t=document.getElementById(id);
+  if(t){t.classList.add('on');t.style.display='block'}
+  window.scrollTo(0,0);
+}
+function showLanding(){show('landing')}
+function startQuiz(){show('qpage');buildVisGrid();buildMatGrid();qgo(1)}
+
+let projectType='';
+function selectType(el,type){
+  document.querySelectorAll('.tc').forEach(e=>e.classList.remove('sel'));
+  el.classList.add('sel');
+  projectType=type;
+}
+
+const TOTAL=9;
+function qgo(n){
+  document.querySelectorAll('.qstep').forEach(s=>s.classList.remove('on'));
+  const s=document.getElementById('qs'+n);
+  if(s)s.classList.add('on');
+  const pb=document.getElementById('qprog');
+  if(pb){
+    pb.innerHTML='';
+    for(let i=1;i<=TOTAL;i++){
+      const d=document.createElement('div');
+      d.className='qpd'+(i<n?' dn':i===n?' ac':'');
+      pb.appendChild(d);
+    }
+  }
+  const sc=document.getElementById('step-counter');
+  if(sc)sc.textContent=`Шаг ${n} из ${TOTAL}`;
+  window.scrollTo(0,0);
+}
+
+// Pills
+document.querySelectorAll('.pill').forEach(p=>{
+  p.addEventListener('click',()=>p.classList.toggle('sel'));
+});
+// Budget
+document.querySelectorAll('.bgc').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.bgc').forEach(x=>x.classList.remove('sel'));
+    b.classList.add('sel');
+  });
+});
+// Fun Q
+document.querySelectorAll('.fun-q').forEach(f=>{
+  f.addEventListener('click',()=>f.classList.toggle('sel'));
+});
+// Basket
+document.querySelectorAll('.bk').forEach(b=>{
+  b.addEventListener('click',()=>b.classList.toggle('sel'));
+});
+
+// File upload
+function handleFiles(input){
+  const list=document.getElementById('upload-list');
+  if(!list)return;
+  const names=[...input.files].map(f=>f.name).join(', ');
+  list.textContent=names?`Загружено: ${names}`:'';
+}
+
+function getSel(g){
+  return [...document.querySelectorAll(`[data-g="${g}"].sel`)].map(e=>{
+    return e.dataset.v||e.querySelector('.bk-name,.bgc-am,.mc-name')?.textContent?.trim()||e.textContent.trim();
+  }).filter(Boolean);
+}
+
+let basketItems=[];
+
+async function generate(){
+  basketItems=[...document.querySelectorAll('.bk.sel')].map(b=>({
+    name:b.querySelector('.bk-name').textContent,
+    price:b.dataset.price
+  }));
+  show('genpage');
+
+  const steps=['gs1','gs2','gs3','gs4','gs5'];
+  const titles=['Изучаем ваши ответы...','Определяем стиль и вкус...','Формируем философию...','Подбираем материалы...','Готовим концепт-проект...'];
+  let si=0;
+  const gt=document.getElementById('gen-t');
+  const timer=setInterval(()=>{
+    if(si<steps.length){
+      document.getElementById(steps[si])?.classList.add('active');
+      gt.textContent=titles[si]||titles[titles.length-1];
+      si++;
+    }
+  },1800);
+
+  const typeMap={interior:'интерьера',landscape:'ландшафта',architecture:'архитектуры',commercial:'коммерческого пространства'};
+  const typeName=typeMap[projectType]||'пространства';
+
+  const d={
+    name:document.getElementById('f-name')?.value||'Клиент',
+    city:document.getElementById('f-city')?.value||'',
+    area:document.getElementById('f-area')?.value||'',
+    contact:document.getElementById('f-contact')?.value||'',
+    type:typeName,
+    who:getSel('who').join(', '),
+    feel:getSel('feel').join(', '),
+    vis:getSel('vis').join(', '),
+    life:getSel('life').join(', '),
+    mat:getSel('mat').join(', '),
+    light:getSel('light').join(', '),
+    color:getSel('color').join(', '),
+    char:getSel('char').join(', '),
+    place:document.getElementById('f-place')?.value||'',
+    never:document.getElementById('f-never')?.value||'',
+    budget:getSel('budget').join(', '),
+    timing:getSel('timing').join(', '),
+    basket:basketItems.map(b=>b.name).join(', ')
+  };
+
+  const sys=`Ты — ведущий дизайнер архитектурного бюро «4 Элемента».
+
+На основе анкеты клиента создай профессиональный концепт-проект ${d.type}.
+
+Считай человека глубже его слов: определи архетип, скрытые желания, образ жизни.
+Напиши концепцию языком образов и эмоций — не технически.
+Создай пространство, которое попадёт прямо в сердце.
+
+Структура (разделяй через ---):
+1. НАЗВАНИЕ — поэтическое название + главная идея (2-3 предложения)
+2. ФИЛОСОФИЯ — кто этот человек, что ему нужно, как изменится его жизнь (3-4 абзаца)
+3. КОНЦЕПЦИЯ — главные архитектурные и планировочные решения
+4. ЗОНИРОВАНИЕ — 3-4 зоны с поэтическими названиями, для каждой: атмосфера, материалы, сценарий жизни
+5. МАТЕРИАЛЫ — палитра, текстуры, тактильность
+6. СВЕТ — утро, вечер, ночь
+7. ДЕТАЛИ И ДЕКОР — что создаёт характер
+8. ЖИЗНЬ ВНУТРИ — конкретные сцены: утро, вечер, выходной, гости
+9. СЛЕДУЮЩИЕ ШАГИ — дорожная карта реализации
+
+Стиль: профессиональный, эмоциональный, образный. Как лучший дизайнер объясняет замысел.
+Запрещено: технический язык, "рекомендуется", банальные фразы.`;
+
+  const usr=`Анкета:
+Имя: ${d.name} | Город: ${d.city} | Площадь: ${d.area} | Тип: ${d.type}
+Кто живёт/работает: ${d.who}
+Желаемые ощущения: ${d.feel}
+Визуальные предпочтения (выбрано из 48 карточек): ${d.vis}
+Сценарии жизни: ${d.life}
+Материалы: ${d.mat} | Свет: ${d.light} | Цвет: ${d.color}
+Характер: ${d.char}
+Любимое место в мире: ${d.place}
+Что НЕ нравится: ${d.never}
+Бюджет: ${d.budget} | Сроки: ${d.timing}
+Дополнительные услуги: ${d.basket}`;
+
+  // ── TELEGRAM CONFIG ──
+  const TG_TOKEN = '8960767981:AAHl7QUcqvwKVPiO7o84OQ0Ifui36t8tgPI';
+  const TG_CHAT  = '-1003744455688';
+
+  async function sendTG(text) {
+    const chunks = [];
+    for (let i = 0; i < text.length; i += 3800) chunks.push(text.slice(i, i+3800));
+    for (const chunk of chunks) {
+      try {
+        await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ chat_id: TG_CHAT, text: chunk, parse_mode:'HTML' })
+        });
+      } catch(e) { console.log('TG error:', e); }
+    }
+  }
+
+  function buildBrief(d, concept) {
+    const typeEmoji = {interior:'🏠',landscape:'🌿',architecture:'🏛',commercial:'◈'};
+    const em = typeEmoji[projectType] || '◈';
+    return `${em} <b>НОВАЯ ЗАЯВКА — 4 ЭЛЕМЕНТА</b>
+━━━━━━━━━━━━━━━━━━━━━
+
+<b>Тип проекта:</b> ${d.type}
+<b>Клиент:</b> ${d.name}
+<b>Город:</b> ${d.city || '—'}
+<b>Площадь:</b> ${d.area || '—'}
+<b>Контакт:</b> ${d.contact || '—'}
+<b>Кто живёт/работает:</b> ${d.who || '—'}
+
+━━━━━━━━━━━━━━━━━━━━━
+📊 <b>АНАЛИЗ АНКЕТЫ</b>
+
+<b>Желаемые ощущения:</b>
+${d.feel || '—'}
+
+<b>Визуальные предпочтения:</b>
+${d.vis || '—'}
+
+<b>Сценарии жизни:</b>
+${d.life || '—'}
+
+<b>Материалы:</b> ${d.mat || '—'}
+<b>Свет:</b> ${d.light || '—'}
+<b>Цвет:</b> ${d.color || '—'}
+<b>Характер клиента:</b> ${d.char || '—'}
+
+<b>Любимое место в мире:</b>
+${d.place || '—'}
+
+<b>Что НЕ нравится:</b>
+${d.never || '—'}
+
+━━━━━━━━━━━━━━━━━━━━━
+💰 <b>БЮДЖЕТ И СРОКИ</b>
+
+<b>Бюджет:</b> ${d.budget || '—'}
+<b>Сроки:</b> ${d.timing || '—'}
+
+<b>Корзина услуг:</b>
+${d.basket || 'Только концепт-проект'}
+
+━━━━━━━━━━━━━━━━━━━━━
+📋 <b>КОНЦЕПТ-ПРОЕКТ</b>
+
+${concept}
+
+━━━━━━━━━━━━━━━━━━━━━
+<i>4 Элемента · Бюро концепций</i>`;
+  }
+
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:sys,messages:[{role:'user',content:usr}]})
+    });
+    clearInterval(timer);
+    steps.forEach(s=>document.getElementById(s)?.classList.add('active'));
+    const data=await res.json();
+    const text=data.content?.map(b=>b.text||'').join('')||'';
+
+    // Отправить в Telegram канал
+    const brief = buildBrief(d, text);
+    await sendTG(brief);
+
+    renderResult(d.name,d.type,text);
+  }catch(e){
+    clearInterval(timer);
+    // Даже при ошибке — попытаться отправить бриф без концепта
+    const brief = buildBrief(d, '[Концепт не сгенерирован — ошибка API]');
+    await sendTG(brief);
+    renderResult(d.name,d.type,'');
+  }
+}
+
+function renderResult(name,type,text){
+  let html=`
+  <div class="res-cover">
+    <div class="res-tag">4 Элемента · Заявка принята</div>
+    <div class="res-gd"></div>
+    <div class="res-name">Спасибо, ${name}.</div>
+    <div class="res-gd"></div>
+    <div class="res-idea">Ваша анкета получена. Дизайнер изучит её и свяжется с вами в течение нескольких часов — для обсуждения концепции и деталей проекта.</div>
+  </div>
+  <div class="res-sec">
+    <div class="res-n">Что дальше</div>
+    <div class="res-st">Как будет происходить работа</div>
+    <div class="res-b">01 — Оплатите концепт-проект — 25 000 ₽
+
+02 — Дизайнер приступает к работе сразу после оплаты
+
+03 — Через 24 часа вы получаете готовый концепт-проект
+
+04 — У вас есть право на одну правку
+
+05 — Финальная версия с учётом правки — в течение 72 часов</div>
+  </div>`;
+
+  if(basketItems.length>0){
+    html+=`<div class="basket-summary">
+      <div class="basket-sum-title">Ваша корзина услуг</div>
+      <div class="basket-sum-item"><span>Концепт-проект ${type}</span><span class="basket-sum-price">25 000 ₽</span></div>`;
+    basketItems.forEach(b=>{html+=`<div class="basket-sum-item"><span>${b.name}</span><span class="basket-sum-price">${b.price}</span></div>`});
+    html+=`<div class="basket-sum-item" style="font-weight:500"><span>Обсудим итоговую стоимость на встрече</span><span class="basket-sum-price">—</span></div></div>`;
+  }
+
+  document.getElementById('res-content').innerHTML=html;
+  document.getElementById('basket-summary').innerHTML='';
+  // Show payment and contract blocks
+  const pb = document.getElementById('payment-block');
+  const cb = document.getElementById('contract-block');
+  if(pb) pb.style.display='block';
+  if(cb) cb.style.display='block';
+  show('respage');
+}
+</script>
+</body>
+</html>
